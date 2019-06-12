@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport"  content="width=device-width, initial-scale=1">
+    <title>Widget</title>
+    <link href="css/style.css" rel="preload" as="style">
+    <link rel="preload" href="font-widget/ALSSchlangesans.woff" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="font-widget/ALSSchlangesans-Black.woff" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="font-widget/Roboto-Bold.woff" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="font-widget/RotondaC.woff" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="font-widget/RotondaC-Bold.woff" as="font" type="font/ttf" crossorigin="anonymous">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <article class="order-status">
+      <header>
+        <h2>Ваш заказ №<span class="order-status__number">1890998</span> принят<br>
+          и находится в обработке</h2>
+        <button type="button" class="order-status__close" aria-label="Закрыть окно">x</button>
+      </header>
+      <div class="main">
+        <div class="order-status__container-personal">
+          <span><span class="order-status__name">Михаил Иванович</span>!</span>
+          <div class="order-status__sale"><span class="order-status__sale-number">10</span>%</div>
+          <div class="order-status__present">подарите друзьям скидку<br> в «<span class="order-status__company-name">CompanyName</span>» и получите скидку в подарок, за каждого друга</div>
+        </div>
+        <ul class="order-status__social-icons">
+          <li class="order-status__social-item order-status__social-item--odnoklassniki">
+            <a href="#">Одноклассники</a>
+          </li>
+          <li class="order-status__social-item order-status__social-item--facebook">
+            <a href="#">Facebook</a>
+          </li>
+          <li class="order-status__social-item order-status__social-item--twitter">
+            <a href="#">Twitter</a>
+          </li>
+          <li class="order-status__social-item order-status__social-item--vk">
+            <a href="#">Вконтакте</a>
+          </li>
+        </ul>
+        <form action="#" class="order-status__form" name="order-status__form" enctype="multipart/form-data" method="post">
+          <input type="email" class="order-status__email" name="order-status__email" value="" placeholder="E-mail друзей" required>
+          <textarea class="order-status__text" required>Хороший ассортимент и цены в <span class="order-status__site-name">%site_name%</span>. Только что после покупки подарили скидку <span  class="order-status__friend-reward">%friend_reward%</span> для моих друзей!<br><br>Времени мало, Вперёд!</textarea>
+          <button type="submit" class="order-status__submit">Отправить</button>
+        </form>
+      </div>
+      <footer>
+        <a class="order-status__link" target="_blank" href="#">http://floctoryblablabla</a>
+        <a class="order-status__rules" target="_blank" href="#">Правила акции</a>
+        <a class="user-agreement" target="_blank" href="#">Пользовательское соглашение</a>
+      </footer>
+    </article>
+  </body>
+</html>

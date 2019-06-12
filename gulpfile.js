@@ -1,41 +1,53 @@
 'use strict';
 const gulp = require('gulp');
+const cleanCSS = require('gulp-clean-css');
+//const del = require('del');
 const sass = require('gulp-sass');
-const watch = require('gulp-watch');
-const browserSync = require('browser-sync');
+const browserSync = require('browser-sync').create();
 const autoprefixer = require('gulp-autoprefixer');
-const plumber = require('gulp-plumber');
+const imagemin = require('gulp-imagemin');
+const imageminSvgo = require('imagemin-svgo');
 
-gulp.task('html', function() {
-  return gulp.src('*.html')
-  .pipe(browserSync.reload({stream:true}));
-});
+function styles() {
+  return gulp.src('scss/style.scss')
+  .pipe(sass().on('error', sass.logError))
+  .pipe(autoprefixer({
+    browsers: ['last 2 versions'],
+    cascade: false
+  }))
+  .pipe(cleanCSS({
+    level: 2
+  }))
+  .pipe(gulp.dest('css'))
+  .pipe(browserSync.stream())
+}
 
-gulp.task('sass', function () {
-  gulp.src('*.scss')
-    .pipe(plumber())
-    .pipe(sass())
-    .pipe(autoprefixer({
-            browsers: ['last 2 versions']
-        }))
-    .pipe(gulp.dest('css'))
-    .pipe(browserSync.reload({stream:true}));
-});
+function watch() {
+  browserSync.init({
+       server: {
+           baseDir: "./"
+       }
+   })
+   gulp.watch('images-widget/*', image)
+   gulp.watch('scss/style.scss', styles)
+   gulp.watch('*.html').on('change', browserSync.reload)
+}
 
-gulp.task('watcher', function() {
-  gulp.watch('*.html', ['html']);
-  gulp.watch('*.scss', ['sass']);
-});
+function image() {
+  return gulp.src('images-widget/**')
+        .pipe(imagemin([
+          imagemin.svgo({
+            plugins: [
+              {removeViewBox: false},
+              {cleanupIDs: false}
+            ]
+          })
+        ]))
+        .pipe(gulp.dest('images'))
+}
+gulp.task('styles', styles);
+gulp.task('watch', watch);
+gulp.task('image', image);
 
-gulp.task('browserSync', function() {
-  browserSync({
-    server: {
-      baseDir: './'
-    },
-    port: 8080,
-    open: true,
-    notify: false
-  });
-});
-
-gulp.task('default', ['sass', 'watcher', 'browserSync']);
+gulp.task('build', gulp.series(styles, image));
+gulp.task('default', gulp.series('build', 'watch'));
